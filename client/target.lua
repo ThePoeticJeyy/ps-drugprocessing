@@ -241,6 +241,23 @@ CreateThread(function()
         },
     distance = 3.5
     })
+    exports['qb-target']:AddBoxZone("cokebagging", vector3(1086.73, -3197.36, -38.99), 1.0, 1.0, {
+        name = "cokebagging",
+        heading = 270.29,
+        debugPoly = false,
+        minZ = -39.49,
+        maxZ = -38.49,
+    }, {
+        options = {
+            {
+                type = "client",
+                event = "ps-drugprocessing:ProcessCokeBaggies",
+                icon = "fas fa-pills",
+                label = "Package Coke Baggies",
+            },
+        },
+    distance = 2.0
+    })
     exports["qb-target"]:AddBoxZone("weedproces", vector3(1038.37, -3206.06, -38.17), 2.6, 1.0, {
         name = "weedproces",
         heading = 0,
