@@ -26,10 +26,11 @@ Config.CircleZones = {
 	ChemicalsField = {coords = vector3(1264.97, 1803.96, 82.94), name = ('Chemicals'), radius = 100.0},
 	ChemicalsConvertionMenu = {coords = vector3(3536.71, 3662.63, 28.12), name = ('Chemicals Process'), radius = 100.0},
 
-	CokeField = {coords = vector3(2806.5, 4774.46, 46.98), name = ('Coke'), radius = 100.0},
+	CokeField = {coords = vector3(5349.08, -5181.06, 29.5), name = ('Coke'), radius = 100.0},
 	CokeProcessing = {coords = vector3(1087.14, -3195.31, -38.99), name = ('Coke Process'), radius = 20.0}, 
 	CokePowder = {coords = vector3(1092.9, -3196.65, -38.99), name = ('Powder Cutting'), radius = 20.0},--vector3(1092.9, -3196.65, -38.99)
 	CokeBrick = {coords = vector3(1099.57, -3194.35, -38.99), name = ('Brick Up Packages'), radius = 20.0},--vector3(1099.57, -3194.35, -38.99)
+	CokeBagging = {coords = vector3(1087.170654, -3197.419678, -38.993462), name = ('Coke Bagging'), radius = 20.0 },
 	
 	HeroinField = {coords = vector3(-2339.15, -54.32, 95.05), name = ('Heroin'), radius = 100.0},
 	HeroinProcessing = {coords = vector3(1413.37, -2041.74, 52.0), name = ('Heroin Process'), radius = 100.0},
@@ -77,17 +78,22 @@ Config.WeedLab = {
 --------------------------------
 
 Config.CokeProcessing = {
-	CokeLeaf = 1, -- Amount of Leaf Needed to Process
-	ProcessCokeLeaf = math.random(2,7), -- Amount of Coke Received
-	-- Processing Small Bricks --
-	Coke = 10, -- Amount of Coke Needed for Small Brick
-	BakingSoda = 5, -- Amount of Baking Soda Needed for Small Brick
-	SmallCokeBrick = math.random(2,7),
-	-- Process Small Bricks Into Large Brick --
-	SmallBrick = 4, -- Amount of Small Bricks Required
-	LargeBrick = 1, -- Large Bricks Received
-}
+    CokeLeaf = 1, -- Amount of Leaf Needed to Process
+    ProcessCokeLeaf = math.random(2,7), -- Amount of Coke Received
 
+    -- Processing Small Bricks --
+    Coke = 10, -- Amount of Coke Needed for Small Brick
+    BakingSoda = 5, -- Amount of Baking Soda Needed for Small Brick
+    SmallCokeBrick = math.random(2,7),
+
+    -- Process Small Bricks Into Large Brick --
+    SmallBrick = 4, -- Amount of Small Bricks Required
+    LargeBrick = 1, -- Large Bricks Received
+
+    -- Process Coke Brick Into Baggies --
+    CokeBrick = 1, -- Amount of Coke Bricks Required
+    CokeBaggies = 50, -- Amount of Coke Baggies Received
+}
 --------------------------------
 -- METH PROCESSING AMOUNTS --
 --------------------------------
@@ -105,3 +111,4 @@ Config.MethProcessing = {
 Config.HeroinProcessing = {
 	Poppy = 2 -- Amount of Poppy Required for 1 Heroin
 }
+
