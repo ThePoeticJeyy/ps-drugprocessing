@@ -215,6 +215,38 @@ local function ProcessBricks()
 	end)
 end
 
+local function ProcessCokeBaggies()
+	isProcessing = true
+	local playerPed = PlayerPedId()
+
+	TaskStartScenarioInPlace(playerPed, "PROP_HUMAN_PARKING_METER", 0, true)
+	QBCore.Functions.Progressbar("search_register", "Packaging Coke Baggies", 15000, false, true, {
+		disableMovement = true,
+		disableCarMovement = true,
+		disableMouse = false,
+		disableCombat = true,
+	}, {}, {}, {}, function()
+		TriggerServerEvent('ps-drugprocessing:bagCocaine')
+
+		local timeLeft = Config.Delays.CokeProcessing / 1000
+		while timeLeft > 0 do
+			Wait(1000)
+			timeLeft -= 1
+
+			if #(GetEntityCoords(playerPed)-Config.CircleZones.CokeBagging.coords) > 4 then
+				TriggerServerEvent('ps-drugprocessing:cancelProcessing')
+				break
+			end
+		end
+
+		ClearPedTasks(playerPed)
+		isProcessing = false
+	end, function()
+		ClearPedTasks(playerPed)
+		isProcessing = false
+	end)
+end
+
 RegisterNetEvent('ps-drugprocessing:ProcessCocaFarm', function()
 	local coords = GetEntityCoords(PlayerPedId())
 
@@ -269,6 +301,27 @@ RegisterNetEvent('ps-drugprocessing:ProcessBricks', function()
 					QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
 				end
 			end, {coke_small_brick = Config.CokeProcessing.SmallBrick, finescale = 1})
+		else
+			QBCore.Functions.Notify(Lang:t("error.already_processing"), 'error')
+		end
+	end
+end)
+
+RegisterNetEvent('ps-drugprocessing:ProcessCokeBaggies', function()
+	local coords = GetEntityCoords(PlayerPedId())
+
+	if #(coords-Config.CircleZones.CokeBagging.coords) < 5 then
+		if not isProcessing then
+			QBCore.Functions.TriggerCallback('ps-drugprocessing:validate_items', function(result)
+				if result.ret then
+					ProcessCokeBaggies()
+				else
+					QBCore.Functions.Notify(Lang:t("error.no_item", {item = result.item}))
+				end
+			end, {
+				coke_brick = Config.CokeProcessing.CokeBrick,
+				finescale = 1
+			})
 		else
 			QBCore.Functions.Notify(Lang:t("error.already_processing"), 'error')
 		end
@@ -375,3 +428,4 @@ CreateThread(function()
         end
     end)
 end)
+
