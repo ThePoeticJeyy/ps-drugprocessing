@@ -12,6 +12,21 @@ RegisterServerEvent('ps-drugprocessing:pickedUpCocaLeaf', function()
 	end
 end)
 
+RegisterServerEvent('ps-drugprocessing:bagCocaine', function()
+	local src = source
+	local Player = QBCore.Functions.GetPlayer(src)
+
+	if Player.Functions.RemoveItem('coke_brick', Config.CokeProcessing.CokeBrick) then
+		if Player.Functions.AddItem('cokebaggy', Config.CokeProcessing.CokeBaggies) then
+			TriggerClientEvent("inventory:client:ItemBox", src, QBCore.Shared.Items['coke_brick'], "remove", Config.CokeProcessing.CokeBrick)
+			TriggerClientEvent("inventory:client:ItemBox", src, QBCore.Shared.Items['cokebaggy'], "add", Config.CokeProcessing.CokeBaggies)
+			TriggerClientEvent('QBCore:Notify', src, 'Successfully packaged cocaine.', 'success')
+		else
+			Player.Functions.AddItem('coke_brick', Config.CokeProcessing.CokeBrick)
+		end
+	end
+end)
+
 RegisterServerEvent('ps-drugprocessing:processCocaLeaf', function()
 	local src = source
     local Player = QBCore.Functions.GetPlayer(src)
@@ -67,3 +82,4 @@ RegisterServerEvent('ps-drugprocessing:processCocaBrick', function()
 		end
 	end
 end)
+
